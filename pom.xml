@@ -4,7 +4,7 @@
   <groupId>lu.amazon.aws.demo</groupId>
   <artifactId>VinayDevOpsLab</artifactId>
   <packaging>war</packaging>
-  <version>1.0.15-SNAPSHOT</version>
+  <version>1.0.15</version>
   <name>VinayDevOpsLab</name>
   <url>http://maven.apache.org</url>
   <dependencies>
