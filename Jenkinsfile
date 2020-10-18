@@ -43,9 +43,7 @@ pipeline {
 
       stage('3. Publish to maven RELEASE repository - nexus'){
         
-        when {
-          Name = true
-        }
+        when { environment name: 'Name', value: 'true' }
 
         steps {
 
@@ -68,10 +66,9 @@ pipeline {
 
      stage('4. Publish to maven SNAPSHOT repository - nexus'){
         
-        when {
-          Name = false
-        }
-
+        
+        when { environment name: 'Name', value: 'false' }
+        
         steps {
 
             sh "echo '${Name}'"
