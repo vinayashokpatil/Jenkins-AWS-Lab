@@ -10,8 +10,9 @@ pipeline {
     ArtifactId = readMavenPom().getArtifactId()
     GroupId = readMavenPom().getGroupId()
     Version = readMavenPom().getVersion()
-    Name = readMavenPom().getName()
-    
+    Name = readMavenPom().getName().endsWith("-RELEASE")
+    Release = ''
+
   }
 
   stages {
@@ -41,7 +42,10 @@ pipeline {
       }
 
       stage('3. Publish to maven repository - nexus'){
-        
+        sh "echo '${Name}'"
+        when {
+          Name = true
+        }
         steps {
            nexusArtifactUploader artifacts: [[
              artifactId: "${ArtifactId}", 
@@ -53,7 +57,7 @@ pipeline {
              nexusUrl: '3.137.187.30:8081', 
              nexusVersion: 'nexus3', 
              protocol: 'http', 
-             repository: 'devops-aws-lab-RELEASE', 
+             repository: "Jenkins-AWS-Lab-RELEASE", 
              version: "${Version}"
         }
 
