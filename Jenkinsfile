@@ -6,6 +6,13 @@ pipeline {
   maven 'maven'
   } 
 
+  environment {
+    artifactId = readMavenPom().artifactId()
+    groupId = readMavenPom().getGroupId()
+    version = readMavenPom().getVersion()
+    name = readMavenPom().getName()
+  }
+
   stages {
       
       stage('1. Git CheckOut'){
@@ -35,7 +42,18 @@ pipeline {
       stage('3. Publish to maven repository - nexus'){
         
         steps {
-           sh 'echo "hello"'
+           nexusArtifactUploader artifacts: [[
+             artifactId: '${artifactId}', 
+             classifier: '', 
+             file: 'target/*.war', 
+             type: '*.war']], 
+             credentialsId: 'nexus3', 
+             groupId: '${groupId}', 
+             nexusUrl: '3.137.187.30:8081', 
+             nexusVersion: 'nexus3', 
+             protocol: 'http', 
+             repository: 'devops-aws-lab-RELEASE', 
+             version: '${version}'
         }
 
 
