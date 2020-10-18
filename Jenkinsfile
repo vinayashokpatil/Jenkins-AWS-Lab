@@ -80,7 +80,7 @@ pipeline {
              type: 'war']], 
              credentialsId: 'nexus3', 
              groupId: "${GroupId}", 
-             nexusUrl: '3.137.187.30:8081', 
+             nexusUrl: '172.31.9.39:8081', 
              nexusVersion: 'nexus3', 
              protocol: 'http', 
              repository: "devops-aws-lab-SNAPSHOT", 
