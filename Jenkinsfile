@@ -7,10 +7,10 @@ pipeline {
   } 
 
   environment {
-    artifactId = readMavenPom().getartifactId()
-    groupId = readMavenPom().getGroupId()
-    version = readMavenPom().getVersion()
-    name = readMavenPom().getName()
+    ArtifactId = readMavenPom().getartifactId()
+    GroupId = readMavenPom().getGroupId()
+    Version = readMavenPom().getVersion()
+    Name = readMavenPom().getName()
   }
 
   stages {
@@ -43,17 +43,17 @@ pipeline {
         
         steps {
            nexusArtifactUploader artifacts: [[
-             artifactId: '${artifactId}', 
+             artifactId: "${ArtifactId}", 
              classifier: '', 
              file: 'target/*.war', 
              type: '*.war']], 
              credentialsId: 'nexus3', 
-             groupId: '${groupId}', 
+             groupId: "${GroupId}", 
              nexusUrl: '3.137.187.30:8081', 
              nexusVersion: 'nexus3', 
              protocol: 'http', 
              repository: 'devops-aws-lab-RELEASE', 
-             version: '${version}'
+             version: "${Version}"
         }
 
 
