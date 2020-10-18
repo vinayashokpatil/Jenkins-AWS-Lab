@@ -11,6 +11,7 @@ pipeline {
     GroupId = readMavenPom().getGroupId()
     Version = readMavenPom().getVersion()
     Name = readMavenPom().getName()
+    
   }
 
   stages {
@@ -45,8 +46,8 @@ pipeline {
            nexusArtifactUploader artifacts: [[
              artifactId: "${ArtifactId}", 
              classifier: '', 
-             file: 'target/*.war', 
-             type: '*.war']], 
+             file: "target/${ArtifactId}-${Version}.war", 
+             type: 'war']], 
              credentialsId: 'nexus3', 
              groupId: "${GroupId}", 
              nexusUrl: '3.137.187.30:8081', 
