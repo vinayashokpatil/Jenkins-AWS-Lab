@@ -41,12 +41,16 @@ pipeline {
 
       }
 
-      stage('3. Publish to maven repository - nexus'){
-        sh "echo '${Name}'"
+      stage('3. Publish to maven RELEASE repository - nexus'){
+        
         when {
           Name = true
         }
+
         steps {
+
+            sh "echo '${Name}'"
+
            nexusArtifactUploader artifacts: [[
              artifactId: "${ArtifactId}", 
              classifier: '', 
@@ -60,25 +64,34 @@ pipeline {
              repository: "Jenkins-AWS-Lab-RELEASE", 
              version: "${Version}"
         }
+     }
 
+     stage('4. Publish to maven SNAPSHOT repository - nexus'){
+        
+        when {
+          Name = false
+        }
 
-      }
+        steps {
 
+            sh "echo '${Name}'"
 
+           nexusArtifactUploader artifacts: [[
+             artifactId: "${ArtifactId}", 
+             classifier: '', 
+             file: "target/${ArtifactId}-${Version}.war", 
+             type: 'war']], 
+             credentialsId: 'nexus3', 
+             groupId: "${GroupId}", 
+             nexusUrl: '3.137.187.30:8081', 
+             nexusVersion: 'nexus3', 
+             protocol: 'http', 
+             repository: "Jenkins-AWS-Lab-SNAPSHOT", 
+             version: "${Version}"
+        }
+     }
 
 
   }
-
-
-
-
-
-
-
-
-
-
-
-
 
 }
