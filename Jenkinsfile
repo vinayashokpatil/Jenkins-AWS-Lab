@@ -35,7 +35,7 @@ pipeline {
       stage('3. Publish to maven repository - nexus'){
         
         steps {
-           
+           sh 'echo "hello"'
         }
 
 
