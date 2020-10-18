@@ -59,7 +59,7 @@ pipeline {
              nexusUrl: '3.137.187.30:8081', 
              nexusVersion: 'nexus3', 
              protocol: 'http', 
-             repository: "Jenkins-AWS-Lab-RELEASE", 
+             repository: "devops-aws-lab-RELEASE", 
              version: "${Version}"
         }
      }
@@ -83,7 +83,7 @@ pipeline {
              nexusUrl: '3.137.187.30:8081', 
              nexusVersion: 'nexus3', 
              protocol: 'http', 
-             repository: "Jenkins-AWS-Lab-SNAPSHOT", 
+             repository: "devops-aws-lab-SNAPSHOT", 
              version: "${Version}"
         }
      }
