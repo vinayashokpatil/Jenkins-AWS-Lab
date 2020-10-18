@@ -42,10 +42,13 @@ pipeline {
       }
 
       stage ('Print') {
+
+        steps {
         sh echo '${ArtifactId}'
         sh echo '${GroupId}'
         sh echo '${Version}'
         sh echo '${Name}'
+      }
       }
 
       stage('3. Publish to maven RELEASE repository - nexus'){
