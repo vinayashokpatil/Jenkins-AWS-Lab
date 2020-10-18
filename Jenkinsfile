@@ -55,11 +55,11 @@ pipeline {
              file: "target/${ArtifactId}-${Version}.war", 
              type: 'war']], 
              credentialsId: 'nexus3', 
-             groupId: "${GroupId}", 
-             nexusUrl: '3.137.187.30:8081', 
+             groupId: 'lu.amazon.aws.demo', 
+             nexusUrl: '172.31.9.39:8081', 
              nexusVersion: 'nexus3', 
              protocol: 'http', 
-             repository: "devops-aws-lab-RELEASE", 
+             repository: "Jenkins-AWS-Lab-RELEASE", 
              version: "${Version}"
         }
      }
@@ -79,11 +79,11 @@ pipeline {
              file: "target/${ArtifactId}-${Version}.war", 
              type: 'war']], 
              credentialsId: 'nexus3', 
-             groupId: "${GroupId}", 
+             groupId: 'lu.amazon.aws.demo', 
              nexusUrl: '172.31.9.39:8081', 
              nexusVersion: 'nexus3', 
              protocol: 'http', 
-             repository: "devops-aws-lab-SNAPSHOT", 
+             repository: "Jenkins-AWS-Lab-SNAPSHOT", 
              version: "${Version}"
         }
      }
