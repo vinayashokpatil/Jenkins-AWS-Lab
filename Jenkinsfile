@@ -52,9 +52,11 @@ pipeline {
 
       stage('3. Publish to maven SNAPSHOT repository - nexus'){
         
-        when {environment name: 'VersionCheck', value: 'true'}
+         steps {
 
-        steps {
+           script {
+
+             def NexusRepo = Version.endsWith("-SNAPSHOT") ? "Jenkins-AWS-Lab-SNAPSHOT" : "Jenkins-AWS-Lab-RELEASE"
 
              nexusArtifactUploader artifacts: [[
              artifactId: "${ArtifactId}", 
@@ -66,8 +68,9 @@ pipeline {
              nexusUrl: '172.31.9.39:8081', 
              nexusVersion: 'nexus3', 
              protocol: 'http', 
-             repository: "Jenkins-AWS-Lab-SNAPSHOT", 
+             repository: "${NexusRepo}, 
              version: "${Version}"
+          }
         }
      }
 
