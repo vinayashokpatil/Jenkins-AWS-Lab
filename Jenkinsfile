@@ -44,10 +44,10 @@ pipeline {
       stage ('Print') {
 
         steps {
-        sh echo '${ArtifactId}'
-        sh echo '${GroupId}'
-        sh echo '${Version}'
-        sh echo '${Name}'
+           sh echo "${ArtifactId}"
+           sh echo "${GroupId}"
+           sh echo "${Version}"
+           sh echo "${Name}"
       }
       }
 
