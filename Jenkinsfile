@@ -50,7 +50,7 @@ pipeline {
       }
       }
 
-      stage('3. Publish to maven RELEASE repository - nexus'){
+      stage('3. Publish to maven SNAPSHOT repository - nexus'){
         
         when {environment name: 'VersionCheck', value: 'true'}
 
@@ -62,7 +62,7 @@ pipeline {
              file: "target/${ArtifactId}-${Version}.war", 
              type: 'war']], 
              credentialsId: 'nexus3', 
-             groupId: 'lu.amazon.aws.demo', 
+             groupId: "${GroupId}", 
              nexusUrl: '172.31.9.39:8081', 
              nexusVersion: 'nexus3', 
              protocol: 'http', 
