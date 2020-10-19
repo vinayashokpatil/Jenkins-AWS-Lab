@@ -108,7 +108,7 @@ pipeline {
        steps {
          script {
             
-          def Command = Version.endsWith("-SNAPSHOT") ? "ansible-playbook deploywar-to-tomcat_TEST.yaml -i hosts" : "ansible-playbook deploywar-to-tomcat_STAGING.yaml -i hosts"
+          def Command = Version.endsWith("-SNAPSHOT") ? "ansible-playbook /opt/playbooks/deploywar-to-tomcat_TEST.yaml -i /opt/playbooks/hosts" : "ansible-playbook /opt/playbooks/deploywar-to-tomcat_STAGING.yaml -i /opt/playbooks/hosts"
           
           sshPublisher(publishers: 
           [sshPublisherDesc(
