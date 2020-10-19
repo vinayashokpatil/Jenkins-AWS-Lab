@@ -74,7 +74,7 @@ pipeline {
         }
      }
    
-     stage ('4.Deploy to STAGING server if the version tag is RELEASE else DEPLOY to TEST server') {
+     stage ('4.Transfer to STAGING folder if the version tag is RELEASE else transfer to TEST folder') {
 
        steps {
          script {
@@ -102,12 +102,36 @@ pipeline {
                  verbose: false)])
          }
        }
-
-
-
      }
 
-
+     stage ('5. Invoke Ansible Playbook to DEPLOY on tomcat based on STAGING/TEST') {
+       steps {
+         script {
+            
+          def Command = Version.endsWith("-SNAPSHOT") ? "ansible-playbook deploywar-to-tomcat_TEST.yaml -i hosts" : "ansible-playbook deploywar-to-tomcat_STAGING.yaml -i hosts"
+          
+          sshPublisher(publishers: 
+          [sshPublisherDesc(
+            configName: 'ansible_controller_instance', 
+            transfers: [
+              sshTransfer(
+                cleanRemote: false, 
+                excludes: '', 
+                execCommand: "${Command}", 
+                execTimeout: 120000, 
+                flatten: false, 
+                makeEmptyDirs: false, 
+                noDefaultExcludes: false, 
+                patternSeparator: '[, ]+', 
+                remoteDirectory: '', 
+                remoteDirectorySDF: false, 
+                removePrefix: '', sourceFiles: '')], 
+                usePromotionTimestamp: false, 
+                useWorkspaceInPromotion: false, 
+                verbose: false)])
+         }
+       }
+     }
 
 
 
