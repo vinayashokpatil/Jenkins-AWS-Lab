@@ -123,7 +123,7 @@ pipeline {
                 makeEmptyDirs: false, 
                 noDefaultExcludes: false, 
                 patternSeparator: '[, ]+', 
-                remoteDirectory: '', 
+                remoteDirectory: '//opt//playbooks', 
                 remoteDirectorySDF: false, 
                 removePrefix: '', sourceFiles: '')], 
                 usePromotionTimestamp: false, 
