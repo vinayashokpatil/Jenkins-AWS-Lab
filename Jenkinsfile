@@ -50,7 +50,7 @@ pipeline {
       }
       }
 
-      stage('3. Publish to maven SNAPSHOT repository - nexus'){
+      stage('3. Publish to maven repository - nexus'){
         
          steps {
 
@@ -73,6 +73,43 @@ pipeline {
           }
         }
      }
+   
+     stage ('4.Deploy to STAGING server if the version tag is RELEASE else DEPLOY to TEST server') {
+
+       steps {
+         script {
+           def VersionTag = Version.endsWith("-SNAPSHOT") ? "//opt//playbooks//artifacts-from-jenkins-TEST" : "//opt//playbooks//artifacts-from-jenkins-STAGING"
+           
+           sshPublisher(publishers: 
+           [sshPublisherDesc(
+             configName: 'ansible_controller_instance', 
+             transfers: [
+               sshTransfer(
+                 cleanRemote: false, 
+                 excludes: '', 
+                 execCommand: '', 
+                 execTimeout: 120000, 
+                 flatten: false, 
+                 makeEmptyDirs: false, 
+                 noDefaultExcludes: false, 
+                 patternSeparator: '[, ]+', 
+                 remoteDirectory: "${VersionTag}", 
+                 remoteDirectorySDF: false, 
+                 removePrefix: 'target', 
+                 sourceFiles: 'target/*.war')], 
+                 usePromotionTimestamp: false, 
+                 useWorkspaceInPromotion: false, 
+                 verbose: false)])
+         }
+       }
+
+
+
+     }
+
+
+
+
 
   }
 
